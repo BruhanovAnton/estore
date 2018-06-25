@@ -63,10 +63,10 @@ select {
 	float: right;
 }
 
-input.a {
+a.link {
 	font-size: 90%;
 	height: 15%;
-	width: 95px;
+	width: 50px;
 	background-color: red;
 	color: white;
 	padding: 14px 20px;
@@ -91,7 +91,9 @@ p.anount{
 font-size: 135%;
 background-color: lightgray;
 }
-
+a { 
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   } 
 
 
 </style>
@@ -217,8 +219,7 @@ $("#totalCost").val(sum.toFixed(2));
 								</select></td>
 								<td>${product.price}Руб</td>
 								<td><input path="productId" type="hidden"
-										value="${product.productId}" /><a class = "Link" href="/webstore/cartDeleteItem/${product.productId}" ><input class="a" type="submit"
-									value="удалить"></input></a></td>
+										value="${product.productId}" /><a class = "link" href="/webstore/cartDeleteItem/${product.productId}" >Удалить</a></td>
 							</tr>
 
 						

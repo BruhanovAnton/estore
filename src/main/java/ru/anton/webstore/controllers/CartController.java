@@ -67,7 +67,7 @@ public class CartController {
 		bm.addOrderWithLineItems(order, items);;
 		bm.exit();
 		
-		model.addAttribute("message", "Заказ оформлен");
+		
 		
 		
 		for (String productName : session.getValueNames()) {
@@ -75,12 +75,18 @@ public class CartController {
 			session.removeAttribute(productName);
 		}
 
-		return "orderComplete";
+		return "redirect:/orderComplete";
 
 	}
 	
 	
-
+	@RequestMapping("/orderComplete")
+    public String orderComplete(Model model){
+		model.addAttribute("message", "Заказ оформлен");
+        return "orderComplete";
+    }
+	
+	
 	
 	@RequestMapping("/cartDeleteItem/{id}")
     public String bookData(@PathVariable("id") int id, HttpSession session,Model model){
@@ -94,12 +100,13 @@ System.out.println("Выудалили товар с ID: " + id);
 		for (String productName : session.getValueNames()) {
 			products.add((Product) session.getAttribute(productName));
 		}
-
+		
+		model.addAttribute("cart", new Cart());
 		model.addAttribute("product", new Product());
 		model.addAttribute("products", products);
 		       
 
-        return "cart";
+        return "redirect:/cart";
     }
 	
 	
