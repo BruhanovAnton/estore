@@ -31,38 +31,7 @@
     
 
 
-   <c:if test="${!empty ebook}">
-    
-        
-        <c:forEach items="${ebook}" var="book">
-       
-        <div class="box">
-		
-       </table>
-		<hr>
-		
-		
-		<table width="200" border="1">
-  <tbody>
-    <tr>
-      <td><img src="http://topmobiletrends.com/wp-content/uploads/2017/09/apple-iphone-x-1024x768.png" width="150" height="150" alt=""/></td>
-      <td><p>Apple iPad 9,7" Wi-Fi + Cellular 128 ГБ, золотой</p></td>
-      <td><button>-</button><input type="text"><button>+</button></td>
-      <td>$${book.price}</td>
-      <td><img src="../Delete_Icon.png" width="35" height="29" alt=""/></td>
-    </tr>
-  </tbody>
-</table>
-		<hr>
-       
-       </div>
-       
-       
-        </c:forEach>
-     
-</c:if>
-
-
+  <h1>It works</h1>
 
 
 
