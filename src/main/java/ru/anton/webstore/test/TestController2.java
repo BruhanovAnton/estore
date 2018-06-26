@@ -1,8 +1,8 @@
 package ru.anton.webstore.test;
 
-import java.io.UnsupportedEncodingException;
+
 import java.util.ArrayList;
-import java.util.Base64;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +23,9 @@ import ru.anton.webstore.supportModels.ProductFilter;
 
 @Controller
 public class TestController2 {
+	
+	
+	
 
 	@RequestMapping(value = "/testPage", method = RequestMethod.GET)
 	public String printWelcome(Model model) {
