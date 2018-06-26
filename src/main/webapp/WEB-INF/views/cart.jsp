@@ -167,18 +167,18 @@ $("#totalCost").val(sum.toFixed(2));
 	<div id="mainWrapper">
 		<header> <!-- This is the header content. It contains Logo and links -->
 		<div id="logo">
-			<img src="resources/img/shop logo.png" alt="sample logo" width="200"
-				height="73">
+			<img src="resources/img/store logo.png" alt="sample logo" width="200"
+				height="82">
 			<!-- Company Logo text -->
 		</div>
 		<div id="headerLinks">
-			<a href="#" title="Login/Register">Войти/Регистрация</a><a href="#"
-				title="Cart"><img src="resources/img/shoping cart.png"
+			<a href="#" title="Login/Register"><img src="resources/img/shoping cart.png"
 				alt="sample logo" width="40" height="40"></a>
+				
 		</div>
 		</header>
 
-		<div id="content">
+	
 
 
 

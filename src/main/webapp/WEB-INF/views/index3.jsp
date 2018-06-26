@@ -98,8 +98,8 @@
 	<div id="mainWrapper">
 		<header> <!-- This is the header content. It contains Logo and links -->
 		<div id="logo">
-			<img src="resources/img/shop logo.png" alt="sample logo" width="200"
-				height="73">
+			<img src="resources/img/store logo.png" alt="sample logo" width="200"
+				height="82">
 			<!-- Company Logo text -->
 		</div>
 		<div id="headerLinks">
@@ -216,7 +216,7 @@
 				
 				
 
-							<input type="submit" value="Купить" class="buyButton">
+							<input type="submit" value="В корзину" class="buyButton">
 						</form:form>
 
 					</div>
