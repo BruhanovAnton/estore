@@ -24,7 +24,11 @@ import ru.anton.webstore.supportModels.ProductFilter;
 @Controller
 public class TestController2 {
 	
-	
+	@RequestMapping("/test")
+	public String testTest() {
+
+		return "test";
+	}
 	
 
 	@RequestMapping(value = "/testPage", method = RequestMethod.GET)

@@ -50,50 +50,55 @@
 		});
 	});
 
-	function showDialog() {
+	
+	
+	
 
-		var x = document.getElementById("myDialog");
-		x.show();
-
-		setTimeout(function() {
-			x.close();
-		}, 1500);
-	}
-
-	$(function() {
-
-		$("#dialog").dialog({
-			autoOpen : false,
-			show : {
-				effect : "fade",
-				duration : 1000
-			},
-			hide : {
-				effect : "fade",
-				duration : 1000
-			}
-		});
-
-		$("#opener").on("click", function() {
-			$("#dialog").dialog("open");
-		});
+</script>
+<script>
+$(document).ready(function() {
+	$(".buyButton").on("click", function() {
+	var x = document.getElementById("myDialog");
+	x.show();
+	setTimeout(function() {
+		x.close();
+	}, 1500);
+	
+	
+	
+	
 	});
+	
+	
+	
+	document.onclick = function(){
+		 
+		$("dialog").on("change", function() {
+			alert($(this).attr("id"));
+		});
+		}
+	
+});
+
+
 </script>
 
+
+
+<style>
+.myDialog {
+background-color: lightblue;
+  position: fixed;
+    top: 50%;
+    left: 25%;
+  transform: translate(-50%, -50%);
+}
+
+</style>
 </head>
 <body>
 
-	<div id="dialog" title="Basic dialog">
-		<p>This is an animated dialog which is useful for displaying
-			information. The dialog window can be moved, resized and closed with
-			the 'x' icon.</p>
-	</div>
-
-	<!-- <button id="opener">Open Dialog</button> -->
-
-
-	<!-- <button id="opener"  onClick="createDialog('Confirm deletion!', 'Do you really want to delete this package?')">Open Dialog</button> -->
-
+	
 
 	<div id="mainWrapper">
 		<header> <!-- This is the header content. It contains Logo and links -->
@@ -209,14 +214,14 @@
 
 
 
-							<dialog id="myDialog">Вы добавили товар в корзину</dialog>
+							<dialog id="myDialog" class = "myDialog">Вы добавили товар в корзину</dialog>
 
 
 				
 				
 				
 
-							<input type="submit" value="В корзину" class="buyButton">
+							<input  type="submit" value="В корзину" class="buyButton" onclick="javascript:alert('${product.title}');">
 						</form:form>
 
 					</div>

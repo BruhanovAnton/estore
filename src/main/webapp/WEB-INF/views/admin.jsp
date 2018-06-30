@@ -29,7 +29,7 @@
 </script>
 
 <script>
-function openCity(evt, cityName) {
+function openTab(evt, cityName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -43,6 +43,7 @@ function openCity(evt, cityName) {
     evt.currentTarget.className += " active";
 }
 </script>
+
 <style>
 body {font-family: Arial;}
 
@@ -121,25 +122,56 @@ div {
 
 
 </style>
+<style>
+body {
+    margin: 0;
+}
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 25%;
+    background-color: #f1f1f1;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+</style>
 
 </head>
 <body>
 
-<h2 align="center" font-family: "Times New Roman", Times, serif;">Панель управления магазином</h2>
 
-<h3>Действия над товарами</h3>
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'add')">Добавить</button>
-  
-  <button class="tablinks" onclick="openCity(event, 'change')">Изменить</button>
-  <button class="tablinks" onclick="openCity(event, 'delete')">Удалить</button>
-</div>
+<ul>
+  <li><a class="active" href="#home">Действия над товарами</a></li>
+  <li><a href="#news">Заказы</a></li>
+  <li><a href="#contact">Пользователи</a></li>
+  <li><a href="#about">Товары</a></li>
+</ul>
 
-<h3>Заказы</h3>
-<div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'orders')">Список</button>
- 
+<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+  <div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'add')">Добавить</button>
+  <button class="tablinks" onclick="openTab(event, 'change')">Изменить</button>
+  <button class="tablinks" onclick="openTab(event, 'delete')">Удалить</button>
 </div>
 
 <div id="add" class="tabcontent">
@@ -234,21 +266,30 @@ div {
 </div>
 
 
-<div id="orders" class="tabcontent">
-  
- <c:if test="${!empty orders}">
-<c:forEach items="${orders}" var="order">
 
-<p>Order ID: ${order.orderId}  Customer ID: ${order.customerId}  TotalCost: ${order.totalCost} Order Date: ${order.orderDate} </p>
-				
-</c:forEach>
-</c:if>
-</div>
 
 
 <h2>${message}</h2>
 
 	
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  
