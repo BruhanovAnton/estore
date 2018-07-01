@@ -30,6 +30,12 @@ public class TestController2 {
 		return "test";
 	}
 	
+	@RequestMapping("/json")
+	public String jsonTest() {
+
+		return "json";
+	}
+	
 
 	@RequestMapping(value = "/testPage", method = RequestMethod.GET)
 	public String printWelcome(Model model) {
