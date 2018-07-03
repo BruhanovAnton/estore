@@ -12,36 +12,29 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$(":file").change(function() {
-			if (this.files && this.files[0]) {
-				var reader = new FileReader();
-				reader.onload = imageIsLoaded;
-				reader.readAsDataURL(this.files[0]);
-			}
-		});
-	});
 
-	function imageIsLoaded(e) {
-		$('#myImg').attr('src', e.target.result);
-	};
-</script>
 
 <script>
-function openTab(evt, cityName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
+function loadProductEditor(link) {
+	var l = 'actionsWithProducts';
+    $.ajax({
+    	
+        url : 'actionsWithProducts',
+        success : function(data) {
+            $('#content').html(data);
+        }
+    });
+    
+//     var xhttp = new XMLHttpRequest();
+//     xhttp.onreadystatechange = function() {
+//       if (this.readyState == 4 && this.status == 200) {
+//         document.getElementById("content").innerHTML = this.responseText;
+//       }
+//     };
+//     xhttp.open("GET", link, true);
+//     xhttp.send();
 }
+
 </script>
 
 <style>
@@ -161,117 +154,16 @@ li a:hover:not(.active) {
 
 
 <ul>
-  <li><a class="active" href="#home">Действия над товарами</a></li>
+  <li><a onclick ="loadProductEditor()" class="active">Действия над товарами</a></li>
   <li><a href="#news">Заказы</a></li>
   <li><a href="#contact">Пользователи</a></li>
   <li><a href="#about">Товары</a></li>
 </ul>
 
 <div style="margin-left:25%;padding:1px 16px;height:1000px;">
-  <div class="tab">
-  <button class="tablinks" onclick="openTab(event, 'add')">Добавить</button>
-  <button class="tablinks" onclick="openTab(event, 'change')">Изменить</button>
-  <button class="tablinks" onclick="openTab(event, 'delete')">Удалить</button>
-</div>
-
-<div id="add" class="tabcontent">
  
-  <form:form modelAttribute="product" action="addProduct" method="post" enctype="multipart/form-data">
-
-		<table>
-			
-			<tr>
-				<td> <input type='file' name="file" id="imgInp" />
-					</td>
-					<td>
-					<img id="myImg" src="#"  with = "50%" height = "50%"/></td>
-			</tr>
-			
-			<tr>
-				<td><p>Название товара</p></td> <td> <form:input type="text" path="title" /></td>
-			</tr>
-
-			<tr>
-				<td><p>Бренд</p></td> <td> <form:input type="text" path="brand"  /></td>
-			</tr>
-			<tr>
-				<td><p>Описание товара</p></td> <td><form:input type="text" path="description"  /></td>
-			</tr>
-			<tr>
-				<td><p>Цена товара</p></td> <td><form:input type="text" path="price" /></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Добавить товар"></td>
-			</tr>
-		</table>
-
-
-	</form:form>
-</div>
-
-<div id="change" class="tabcontent">
-
-  
-  <form:form modelAttribute="product" action="changeDataProduct" method="post" enctype="multipart/form-data">
-
-		<table>
-			<tr>
-				<td><p>Индификатор товара</p></td> <td><form:input type="text" path="productId"  /></td>
-			</tr>
-			<tr>
-				<td> <input type='file' name="file" id="imgInp" />
-					</td>
-					<td>
-					<img id="myImg" src="#"  with = "50%" height = "50%"/></td>
-			</tr>
-			
-			<tr>
-				<td><p>Название товара</p></td> <td> <form:input type="text" path="title" /></td>
-			</tr>
-
-			<tr>
-				<td><p>Бренд</p></td> <td> <form:input type="text" path="brand"  /></td>
-			</tr>
-			<tr>
-				<td><p>Описание товара</p></td> <td><form:input type="text" path="description"  /></td>
-			</tr>
-			<tr>
-				<td><p>Цена товара</p></td> <td><form:input type="text" path="price" /></td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Изменить товар"></td>
-			</tr>
-		</table>
-
-
-	</form:form>
-</div>
-
-<div id="delete" class="tabcontent">
-  
- <form:form modelAttribute="product" action="deleteProduct" method="post">
-
-		<table>
-			<tr>
-				<td><p>Индификатор товара</p></td> <td><form:input type="text" path="productId"  /></td>
-			</tr>
-			
-			<tr>
-				<td><input type="submit" value="Удалить товар"></td>
-			</tr>
-		</table>
-
-
-	</form:form>
-</div>
-
-
-
-
-
-<h2>${message}</h2>
-
-	
+<div id = "content"></div>
+	<h2>${message}</h2>
 </div>
 
 

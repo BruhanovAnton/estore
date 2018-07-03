@@ -57,8 +57,10 @@ Employee employee2 = new Employee();
 	
 	    @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
 	    public @ResponseBody
-	    String getTime() {
+	    String getTime(Model model) {
 	 
+	    	
+	    	
 	        Random rand = new Random();
 	        float r = rand.nextFloat() * 100;
 	        String result = "<br>Next Random # is <b>" + r + "</b>. Generated on <b>" + new Date().toString() + "</b>";

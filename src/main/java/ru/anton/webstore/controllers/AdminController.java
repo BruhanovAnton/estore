@@ -94,5 +94,22 @@ public class AdminController {
 		return "admin";
 
 	}
+	
+	
+	@RequestMapping(value = "/actionsWithProducts", method = RequestMethod.GET)
+	public String actionsWithProducts(Locale locale, Model model) {
+
+		
+		BookManager bm = new BookManager();
+		bm.setup();
+		model.addAttribute("orders", bm.getOrdersList());
+		bm.exit();
+		
+		
+		model.addAttribute("product", new Product());
+		
+
+		return "actionsWithProducts";
+	}
 
 }

@@ -55,12 +55,6 @@ body {
     		cache: false,				
     		
     		success: function(response){
-    			alert(response);
-    			$.each(pesponse, function(k,v){
-    				
-    				$('#data').html(k +" "+ v);
-    				alert("work");
-    			})
     			
     		},
     		error: function(){						
@@ -79,7 +73,7 @@ body {
           document.getElementById("demo").innerHTML = this.responseText;
         }
       };
-      xhttp.open("GET", "ajaxtest.html", true);
+      xhttp.open("GET", "subView", true);
       xhttp.send();
     }
     </script>
