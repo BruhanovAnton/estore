@@ -15,25 +15,23 @@
 
 
 <script>
+
 function loadProductEditor(link) {
-	var l = 'actionsWithProducts';
+	
     $.ajax({
     	
-        url : 'actionsWithProducts',
+        url : link,
         success : function(data) {
             $('#content').html(data);
         }
     });
-    
-//     var xhttp = new XMLHttpRequest();
-//     xhttp.onreadystatechange = function() {
-//       if (this.readyState == 4 && this.status == 200) {
-//         document.getElementById("content").innerHTML = this.responseText;
-//       }
-//     };
-//     xhttp.open("GET", link, true);
-//     xhttp.send();
 }
+
+
+
+    
+   
+
 
 </script>
 
@@ -154,8 +152,8 @@ li a:hover:not(.active) {
 
 
 <ul>
-  <li><a onclick ="loadProductEditor()" class="active">Действия над товарами</a></li>
-  <li><a href="#news">Заказы</a></li>
+  <li><a onclick ="loadProductEditor('actionsWithProducts')" class="active" >Действия над товарами</a></li>
+  <li><a onclick ="loadProductEditor('adminOrderActions')" >Заказы</a></li>
   <li><a href="#contact">Пользователи</a></li>
   <li><a href="#about">Товары</a></li>
 </ul>

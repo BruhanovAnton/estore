@@ -97,7 +97,20 @@ public class AdminController {
 	
 	
 	@RequestMapping(value = "/actionsWithProducts", method = RequestMethod.GET)
-	public String actionsWithProducts(Locale locale, Model model) {
+	public String actionsWithProducts( Model model) {
+
+		
+		
+		
+		model.addAttribute("product", new Product());
+		
+
+		return "actionsWithProducts";
+	}
+	
+	
+	@RequestMapping(value = "/adminOrderActions", method = RequestMethod.GET)
+	public String adminOrderActions( Model model) {
 
 		
 		BookManager bm = new BookManager();
@@ -106,10 +119,10 @@ public class AdminController {
 		bm.exit();
 		
 		
-		model.addAttribute("product", new Product());
+		
 		
 
-		return "actionsWithProducts";
+		return "adminOrderActions";
 	}
 
 }
