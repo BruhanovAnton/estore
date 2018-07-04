@@ -11,6 +11,7 @@ import java.util.Formatter;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -26,7 +27,7 @@ import ru.anton.webstore.supportModels.ProductFilter;
 
 public class BookManager {
 	protected SessionFactory sessionFactory;
-
+	private EntityManager em;
 	public void setup() {
 		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder().configure() // configures
 																									// settings
@@ -186,31 +187,36 @@ public class BookManager {
 
 	}
 
+	
+	@SuppressWarnings("unchecked")
+	public  void getJoinLineItemsListAndProducts(Long id) {
+		Session session = sessionFactory.openSession();
+
+		List<Object[]> items = null;
+		items = (List<Object[]>) session.createSQLQuery("SELECT * FROM lineitems INNER JOIN products ON lineitems.productId = products.productId where order_Id =  " + id).addEntity(LineItem.class).addEntity(Product.class).list();
+		
+		
+		for(int i=0; i<items.size(); i++) {
+			Object[] row = (Object[]) items.get(i);
+			LineItem item = (LineItem)row[0];
+			Product product = (Product)row[1];
+			System.out.println(item.getProductId() +" " +item.getQuantity() + " " + product.getBrand() + " " +product.getPrice());
+		}	
+		
+	}
+	
+	
+	
+	
 	public static void main(String[] args) {
 		BookManager manager = new BookManager();
 		manager.setup();
 
-		List<LineItem> items = new ArrayList<LineItem>();
-
-		Order order = new Order();
-		order.setCustomerId(2);
-		order.setTotalCost(80000);
-		order.setOrderDate(new Date());
-
-		LineItem item1 = new LineItem();
-		item1.setProductId(4);
-		item1.setQuantity(2);
-		item1.setOrder(order);
-
-		LineItem item2 = new LineItem();
-		item2.setProductId(1);
-		item2.setQuantity(3);
-		item2.setOrder(order);
-
-		items.add(item1);
-		items.add(item2);
-
-		manager.addOrderWithLineItems(order, items);
+		manager.getJoinLineItemsListAndProducts(new Long(15));
+		
+		
+		
+		
 
 		manager.exit();
 	}
