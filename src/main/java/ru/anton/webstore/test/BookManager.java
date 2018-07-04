@@ -24,7 +24,6 @@ import ru.anton.webstore.models.Product;
 
 import ru.anton.webstore.supportModels.ProductFilter;
 
-
 public class BookManager {
 	protected SessionFactory sessionFactory;
 
@@ -45,27 +44,24 @@ public class BookManager {
 		// code to close Hibernate Session factory
 	}
 
-	
-	public void addOrderWithLineItems(Order order, List<LineItem> items){
-				
+	public void addOrderWithLineItems(Order order, List<LineItem> items) {
+
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
 		session.save(order);
-		
-		for(LineItem item : items){
+
+		for (LineItem item : items) {
 			session.save(item);
 		}
 
 		session.getTransaction().commit();
 		session.close();
-		
-		
+
 	}
-	
-	
+
 	public void addProduct(Product product) {
-		
+
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
@@ -76,25 +72,25 @@ public class BookManager {
 	}
 
 	public void read() {
-//		Session session = sessionFactory.openSession();
-//
-//		long bookId = 1;
-//		Book book = session.get(Book.class, bookId);
-//
-//		System.out.println("Title: " + book.getTitle());
-//		System.out.println("Author: " + book.getAuthor());
-//		System.out.println("Price: " + book.getPrice());
-//
-//		session.close();
+		// Session session = sessionFactory.openSession();
+		//
+		// long bookId = 1;
+		// Book book = session.get(Book.class, bookId);
+		//
+		// System.out.println("Title: " + book.getTitle());
+		// System.out.println("Author: " + book.getAuthor());
+		// System.out.println("Price: " + book.getPrice());
+		//
+		// session.close();
 	}
 
 	public void updateProduct(Product product) {
-//		Book book = new Book();
-//		book.setId(1);
-//		book.setTitle("Ultimate Java Programming");
-//		book.setAuthor("Nam Ha Minh");
-//		book.setPrice(19.99f);
-//
+		// Book book = new Book();
+		// book.setId(1);
+		// book.setTitle("Ultimate Java Programming");
+		// book.setAuthor("Nam Ha Minh");
+		// book.setPrice(19.99f);
+		//
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
@@ -105,9 +101,9 @@ public class BookManager {
 	}
 
 	public void deleteProduct(Product product) {
-//		Book book = new Book();
-//		book.setId(1);
-//
+		// Book book = new Book();
+		// book.setId(1);
+		//
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
 
@@ -123,80 +119,79 @@ public class BookManager {
 		List<Product> products = null;
 
 		products = (List<Product>) session.createSQLQuery("SELECT * FROM products").addEntity(Product.class).list();
-		
+
 		return products;
 	}
-	
+
 	public List<Order> getOrdersList() {
 		Session session = sessionFactory.openSession();
-		
+
 		List<Order> orders = null;
 		orders = (List<Order>) session.createSQLQuery("SELECT * FROM orders").addEntity(Order.class).list();
-		
-		
-		
-		
+
 		return orders;
 	}
-	
-	
+
+	public List<LineItem> getLineItemsList(Long id) {
+		Session session = sessionFactory.openSession();
+
+		List<LineItem> items = null;
+		items = (List<LineItem>) session.createSQLQuery("SELECT * FROM lineitems where order_Id = " + id).addEntity(LineItem.class).list();
+
+		return items;
+	}
+
 	public List<Product> getSearchResult(String param) {
 		Session session = sessionFactory.openSession();
 		List<Product> books = null;
 
-		books = (List<Product>) session.createSQLQuery("SELECT * FROM products where title like " +"'%"+param+"%'").addEntity(Product.class).list();
-		
+		books = (List<Product>) session.createSQLQuery("SELECT * FROM products where title like " + "'%" + param + "%'")
+				.addEntity(Product.class).list();
+
 		return books;
 	}
 
-	public Product getProduct(Long id){
+	public Product getProduct(Long id) {
 		Session session = sessionFactory.openSession();
 
 		long productId = id;
-		
-		
+
 		return session.get(Product.class, productId);
 	}
-	
-	
-	public List<Product> getViaFilter(ProductFilter filter){
+
+	public List<Product> getViaFilter(ProductFilter filter) {
 		Session session = sessionFactory.openSession();
 		List<Product> filteredProducts = new ArrayList<Product>();
 		String query = "";
 		String brandParams = "";
 		String priceRabgeParams = "";
-		
-		
-		
-//		
-//			Formatter fmtBrand = new Formatter();
-//			fmtBrand.format("WHERE brand in('%s','%s','%s','%s','%s')", filter.getBrand()[0], 
-//					brandParams = filter.getBrand()[1], filter.getBrand()[2], filter.getBrand()[3], filter.getBrand()[4]).toString();
-//			
-//			
-		
-			Formatter fmtPriceRange = new Formatter();
-			priceRabgeParams = fmtPriceRange.format("price between %d and %d ", filter.getMinPrice(), filter.getMaxPrice()).toString();
-		
-		
-		
+
+		//
+		// Formatter fmtBrand = new Formatter();
+		// fmtBrand.format("WHERE brand in('%s','%s','%s','%s','%s')",
+		// filter.getBrand()[0],
+		// brandParams = filter.getBrand()[1], filter.getBrand()[2],
+		// filter.getBrand()[3], filter.getBrand()[4]).toString();
+		//
+		//
+
+		Formatter fmtPriceRange = new Formatter();
+		priceRabgeParams = fmtPriceRange.format("price between %d and %d ", filter.getMinPrice(), filter.getMaxPrice())
+				.toString();
+
 		Formatter fmtQuery = new Formatter();
 		query = fmtQuery.format("SELECT * FROM products where %s %s ", brandParams, priceRabgeParams).toString();
-	
-		 
-		
 
 		return (List<Product>) session.createSQLQuery(query).addEntity(Product.class).list();
-		
-		
+
 	}
-	
+
 	public static void main(String[] args) {
 		BookManager manager = new BookManager();
 		manager.setup();
-		
+
 		List<LineItem> items = new ArrayList<LineItem>();
-		
+
 		Order order = new Order();
 		order.setCustomerId(2);
 		order.setTotalCost(80000);
@@ -211,12 +206,11 @@ public class BookManager {
 		item2.setProductId(1);
 		item2.setQuantity(3);
 		item2.setOrder(order);
-		
+
 		items.add(item1);
 		items.add(item2);
-		
+
 		manager.addOrderWithLineItems(order, items);
-		
 
 		manager.exit();
 	}

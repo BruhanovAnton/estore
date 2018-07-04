@@ -27,12 +27,6 @@ function loadProductEditor(link) {
     });
 }
 
-
-
-    
-   
-
-
 </script>
 
 <style>

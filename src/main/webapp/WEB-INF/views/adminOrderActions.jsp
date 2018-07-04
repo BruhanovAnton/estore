@@ -4,6 +4,73 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script>
+function orderDetailInfo(link) {
+	
+    $.ajax({
+    	
+        url : link,
+        success : function(data) {
+            $('#orderDetails').html(data);
+        }
+    });
+}
+
+</script>
+
+</script>
+<style>
+.modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+.modalDialog:target {
+    opacity:1;
+    pointer-events: auto;
+}
+.modalDialog > div {
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
+    padding: 5px 20px 13px 20px;
+    border-radius: 10px;
+
+}
+.close {
+    background: #606061;
+    color: #FFFFFF;
+    line-height: 25px;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    top: -10px;
+    width: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+}
+.close:hover {
+    background: #00d9ff;
+}
+
+
+</style>
 <style>
 #customers {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -35,14 +102,25 @@
  <div id= "ordersList">
  <c:if test="${!empty orders}">
  <table id="customers">
- <tr><th>Order ID</th><th>Customer ID</th><th>TotalCost</th><th>Order Date</th><th></th><th></th></tr>
+ <tr><th>№ заказа</th><th>Дата и время</th><th>Общая сумма </th><th>Детали</th></tr>
 <c:forEach items="${orders}" var="order">
-<tr><td>${order.orderId}</td><td>${order.customerId}</td><td>${order.totalCost}</td><td>${order.orderDate}</td><td>Подтвердить заказ</td><td>Отменить заказ</td></tr>
+<tr><td>${order.orderId}</td><td>${order.orderDate}</td><td>${order.totalCost} (Руб)</td><td><a onclick ="orderDetailInfo('orderDetailInfo' + ${order.orderId})" href="#openModal">Подробнее</a></td></tr>
 
 				
 </c:forEach>
 </table>
 </c:if>
+</div>
+
+
+
+
+<div id="openModal" class="modalDialog">
+    <div>	<a href="#close" title="Close" class="close">X</a>
+<div id="orderDetails"></div>
+        	
+
+           </div>
 </div>
 </body>
 </html>
