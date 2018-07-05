@@ -129,7 +129,7 @@ public class AdminController {
 		System.out.println(id +" i got it");
 		BookManager bm = new BookManager();
 		bm.setup();
-		model.addAttribute("items", bm.getLineItemsList(id));
+		model.addAttribute("items", bm.getJoinLineItemsListAndProducts(id));
 		bm.exit();
 				
 		return "orderDetailInfo";

@@ -29,6 +29,9 @@ public class Order {
 	@Column(name = "orderDate")
 	private Date orderDate;
 
+	@Column(name = "status")
+	private String status;
+	
 	@OneToMany(mappedBy = "order")
 	private Set<LineItem> lineItems = new HashSet<LineItem>();
 
@@ -80,6 +83,14 @@ public class Order {
 
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

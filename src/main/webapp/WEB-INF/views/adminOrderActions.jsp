@@ -40,7 +40,7 @@ function orderDetailInfo(link) {
     pointer-events: auto;
 }
 .modalDialog > div {
-    width: 400px;
+    width: 800px;
     position: relative;
     margin: 10% auto;
     padding: 5px 20px 13px 20px;

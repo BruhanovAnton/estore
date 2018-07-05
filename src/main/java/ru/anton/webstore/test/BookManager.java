@@ -22,7 +22,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.anton.webstore.models.LineItem;
 import ru.anton.webstore.models.Order;
 import ru.anton.webstore.models.Product;
-
+import ru.anton.webstore.supportModels.OrderDetails;
 import ru.anton.webstore.supportModels.ProductFilter;
 
 public class BookManager {
@@ -189,9 +189,10 @@ public class BookManager {
 
 	
 	@SuppressWarnings("unchecked")
-	public  void getJoinLineItemsListAndProducts(Long id) {
+	public  List<OrderDetails> getJoinLineItemsListAndProducts(Long id) {
 		Session session = sessionFactory.openSession();
 
+		List<OrderDetails> od = new ArrayList<OrderDetails>();
 		List<Object[]> items = null;
 		items = (List<Object[]>) session.createSQLQuery("SELECT * FROM lineitems INNER JOIN products ON lineitems.productId = products.productId where order_Id =  " + id).addEntity(LineItem.class).addEntity(Product.class).list();
 		
@@ -200,8 +201,21 @@ public class BookManager {
 			Object[] row = (Object[]) items.get(i);
 			LineItem item = (LineItem)row[0];
 			Product product = (Product)row[1];
-			System.out.println(item.getProductId() +" " +item.getQuantity() + " " + product.getBrand() + " " +product.getPrice());
+			OrderDetails orderDetails = new OrderDetails();
+			orderDetails.setBrand(product.getBrand());
+			orderDetails.setDescription(product.getDescription());
+			orderDetails.setPrice(product.getPrice());
+			orderDetails.setProductId(product.getProductId());
+			orderDetails.setQuantity(item.getQuantity());
+			orderDetails.setSmallImage(product.getSmallImage());
+			orderDetails.setTitle(product.getTitle());
+			
+			od.add(orderDetails);
+						
 		}	
+		
+		
+		return od;
 		
 	}
 	
@@ -212,9 +226,12 @@ public class BookManager {
 		BookManager manager = new BookManager();
 		manager.setup();
 
-		manager.getJoinLineItemsListAndProducts(new Long(15));
+		List<Order> od = manager.getOrdersList();
 		
 		
+		for(Order o: od){
+			System.out.println(o.getStatus());
+		}
 		
 		
 
