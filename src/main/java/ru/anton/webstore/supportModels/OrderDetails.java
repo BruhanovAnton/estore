@@ -8,6 +8,15 @@ public class OrderDetails {
 	private String description;
 	private float price;
 	private String smallImage;
+	private long orderId;
+
+	public long getOrderId() {
+		return orderId;
+	}
+
+	public void setOrderId(long orderId) {
+		this.orderId = orderId;
+	}
 
 	public int getQuantity() {
 		return quantity;

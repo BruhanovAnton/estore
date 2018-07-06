@@ -130,8 +130,26 @@ public class AdminController {
 		BookManager bm = new BookManager();
 		bm.setup();
 		model.addAttribute("items", bm.getJoinLineItemsListAndProducts(id));
+		model.addAttribute("orderId", bm.getJoinLineItemsListAndProducts(id).get(0).getOrderId());
 		bm.exit();
 				
+		return "orderDetailInfo";
+	}
+	
+	
+	
+	@RequestMapping(value = "/chageOrderStatus{id}", method = RequestMethod.GET)
+	public String ochageOrderStatus(@PathVariable("id") Long id, Model model) {
+
+		System.out.println("Заказ № "+id+" выполнен!");
+		BookManager bm = new BookManager();
+		bm.setup();
+		bm.changeOrderStatus(id);
+		bm.exit();
+		
+		model.addAttribute("message", "Заказ № "+id+" выполнен!");
+		
+		
 		return "orderDetailInfo";
 	}
 

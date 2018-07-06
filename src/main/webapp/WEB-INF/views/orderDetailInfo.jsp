@@ -4,6 +4,25 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<script>
+$('#me').hide();
+function chageOrderStatus(link) {
+	
+    $.ajax({
+    	
+        url : link,
+        success: function(response){
+        	$('#me').show();
+        	$('#me').html('Статус изменен на "ВЫПОЛНЕНО"');
+		},
+		error: function(){						
+			$('#me').html('Error while request..');
+			$('#me').show();
+		}
+    });
+}
+</script>
 <style>
 
 button{
@@ -26,6 +45,10 @@ background-color: green;
 float: right;
 }
 
+div.message{
+background-color: yellow;
+}
+
 </style>
 </head>
 <body>
@@ -41,8 +64,9 @@ float: right;
 				
 </c:forEach>
 </table>
- <button class ="cancel">Отменить</button><button class ="do">Выпонить</button>
+ <button  class ="cancel">Отменить</button><button onclick ="chageOrderStatus('chageOrderStatus' + ${orderId})" class ="do">Выпонить</button>
 </c:if>
-
+<h2>${message}</h2>
+<div class ="message" id="me"></div>
 </body>
 </html>

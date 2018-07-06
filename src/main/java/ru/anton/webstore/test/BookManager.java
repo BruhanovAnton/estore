@@ -13,11 +13,13 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 import ru.anton.webstore.models.LineItem;
 import ru.anton.webstore.models.Order;
@@ -209,6 +211,7 @@ public class BookManager {
 			orderDetails.setQuantity(item.getQuantity());
 			orderDetails.setSmallImage(product.getSmallImage());
 			orderDetails.setTitle(product.getTitle());
+			orderDetails.setOrderId(item.getOrder().getOrderId());
 			
 			od.add(orderDetails);
 						
@@ -219,19 +222,23 @@ public class BookManager {
 		
 	}
 	
-	
+	public void changeOrderStatus(Long id) {
+		Session session = sessionFactory.openSession();
+		session.getTransaction().begin();
+		 session.createSQLQuery("UPDATE orders SET status = 'выполнен' WHERE orderId = "+id).executeUpdate();
+		 session.getTransaction().commit();
+		    session.close();
+	}
 	
 	
 	public static void main(String[] args) {
 		BookManager manager = new BookManager();
 		manager.setup();
 
-		List<Order> od = manager.getOrdersList();
+		manager.changeOrderStatus(new Long(14));;
 		
 		
-		for(Order o: od){
-			System.out.println(o.getStatus());
-		}
+		
 		
 		
 
