@@ -7,14 +7,23 @@
 
 <script>
 $('#me').hide();
-function chageOrderStatus(link) {
+function chageOrderStatus(link, status) {
 	
     $.ajax({
     	
         url : link,
         success: function(response){
-        	$('#me').show();
-        	$('#me').html('Статус изменен на "ВЫПОЛНЕНО"');
+        	
+        	if(status == 'completed'){
+        		$('#me').show();
+        		$("#me").css({"background-color": "yellow", "color" : "black"});
+        		$('#me').html('Статус изменен на "ВЫПОЛНЕНО"');
+        	}else{
+        		$('#me').show();
+        		$("#me").css({"background-color": "red", "color" : "white"});
+        		$('#me').html('Статус изменен на "ОТМЕНЕН"');
+        	}
+        	
 		},
 		error: function(){						
 			$('#me').html('Error while request..');
@@ -45,9 +54,7 @@ background-color: green;
 float: right;
 }
 
-div.message{
-background-color: yellow;
-}
+
 
 </style>
 </head>
@@ -64,9 +71,9 @@ background-color: yellow;
 				
 </c:forEach>
 </table>
- <button  class ="cancel">Отменить</button><button onclick ="chageOrderStatus('chageOrderStatus' + ${orderId})" class ="do">Выпонить</button>
+ <button onclick ="chageOrderStatus('chageOrderStatusTocCancel' + ${orderId}, 'cancel')" class ="cancel">Отменить</button><button onclick ="chageOrderStatus('chageOrderStatusTocCompleted' + ${orderId}, 'completed')" class ="do">Выпонить</button>
 </c:if>
-<h2>${message}</h2>
+
 <div class ="message" id="me"></div>
 </body>
 </html>

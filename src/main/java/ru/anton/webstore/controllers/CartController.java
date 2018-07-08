@@ -35,6 +35,7 @@ public class CartController {
 		order.setCustomerId(cart.getUserId());
 		order.setTotalCost(cart.getTotalCost());
 		order.setOrderDate(new Date());
+		order.setStatus("в обработке");
 		
 		Map<Integer, Integer> map = cart.getLineItems();
 		List<LineItem> items = new ArrayList<LineItem>();

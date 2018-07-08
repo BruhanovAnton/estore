@@ -62,7 +62,7 @@ $(document).ready(function() {
 	x.show();
 	setTimeout(function() {
 		x.close();
-	}, 1500);
+	}, 2000);
 	
 	
 	
@@ -71,34 +71,38 @@ $(document).ready(function() {
 	
 	
 	
-	document.onclick = function(){
-		 
-		$("dialog").on("change", function() {
-			alert($(this).attr("id"));
-		});
-		}
-	
 });
+	
 
 
+	
 </script>
+<script >
+function dialogData(product){
 
-
+	$('#myDialog').html('Вы добавили '+product+' в корзину!');
+	}
+</script>
 
 <style>
 .myDialog {
-background-color: lightblue;
+ border-radius: 6px; 
+background: lightyellow;
   position: fixed;
     top: 50%;
     left: 25%;
   transform: translate(-50%, -50%);
+  z-index:99999999;
 }
 
 </style>
 </head>
 <body>
 
+	<dialog id="myDialog" class = "myDialog"></dialog>
 	
+    
+
 
 	<div id="mainWrapper">
 		<header> <!-- This is the header content. It contains Logo and links -->
@@ -212,16 +216,11 @@ background-color: lightblue;
 							</p>
 
 
-
-
-							<dialog id="myDialog" class = "myDialog">Вы добавили товар в корзину</dialog>
-
-
-				
+			
 				
 				
 
-							<input  type="submit" value="В корзину" class="buyButton" onclick="javascript:alert('${product.title}');">
+							<input  type="submit" value="В корзину" class="buyButton" onclick="dialogData('${product.title}')">
 						</form:form>
 
 					</div>

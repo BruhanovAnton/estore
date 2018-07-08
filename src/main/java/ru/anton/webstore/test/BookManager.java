@@ -26,6 +26,7 @@ import ru.anton.webstore.models.Order;
 import ru.anton.webstore.models.Product;
 import ru.anton.webstore.supportModels.OrderDetails;
 import ru.anton.webstore.supportModels.ProductFilter;
+import ru.anton.webstore.supportModels.Status;
 
 public class BookManager {
 	protected SessionFactory sessionFactory;
@@ -130,7 +131,7 @@ public class BookManager {
 		Session session = sessionFactory.openSession();
 
 		List<Order> orders = null;
-		orders = (List<Order>) session.createSQLQuery("SELECT * FROM orders").addEntity(Order.class).list();
+		orders = (List<Order>) session.createSQLQuery("SELECT * FROM orders WHERE status = 'в обработке' ").addEntity(Order.class).list();
 
 		return orders;
 	}
@@ -222,10 +223,15 @@ public class BookManager {
 		
 	}
 	
-	public void changeOrderStatus(Long id) {
+	public void changeOrderStatus(Long id, Status status) {
 		Session session = sessionFactory.openSession();
 		session.getTransaction().begin();
-		 session.createSQLQuery("UPDATE orders SET status = 'выполнен' WHERE orderId = "+id).executeUpdate();
+		if(status == Status.completed){
+			session.createSQLQuery("UPDATE orders SET status = 'выполнен' WHERE orderId = "+id).executeUpdate();
+		}else if(status == Status.cancel){
+			session.createSQLQuery("UPDATE orders SET status = 'отменен' WHERE orderId = "+id).executeUpdate();
+		}
+		 
 		 session.getTransaction().commit();
 		    session.close();
 	}
@@ -235,7 +241,7 @@ public class BookManager {
 		BookManager manager = new BookManager();
 		manager.setup();
 
-		manager.changeOrderStatus(new Long(14));;
+		//manager.changeOrderStatus(new Long(14));;
 		
 		
 		
