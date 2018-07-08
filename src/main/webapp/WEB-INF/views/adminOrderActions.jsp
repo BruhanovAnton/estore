@@ -116,7 +116,7 @@ function orderDetailInfo(link) {
 
 
 <div id="openModal" class="modalDialog">
-    <div>	<a href="#close" title="Close" class="close">X</a>
+    <div>	<a onclick ="loadPage('adminOrderActions')" href="#close" title="Close" class="close">X</a>
 <div id="orderDetails"></div>
         	
 

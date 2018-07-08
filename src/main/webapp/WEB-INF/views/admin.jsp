@@ -16,7 +16,7 @@
 
 <script>
 
-function loadProductEditor(link) {
+function loadPage(link) {
 	
     $.ajax({
     	
@@ -146,8 +146,8 @@ li a:hover:not(.active) {
 
 
 <ul>
-  <li><a onclick ="loadProductEditor('actionsWithProducts')" class="active" >Действия над товарами</a></li>
-  <li><a onclick ="loadProductEditor('adminOrderActions')" >Заказы</a></li>
+  <li><a onclick ="loadPage('actionsWithProducts')" class="active" >Действия над товарами</a></li>
+  <li><a onclick ="loadPage('adminOrderActions')" >Заказы</a></li>
   <li><a href="#contact">Пользователи</a></li>
   <li><a href="#about">Товары</a></li>
 </ul>

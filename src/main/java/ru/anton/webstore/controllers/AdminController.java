@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import ru.anton.webstore.models.Product;
-
+import ru.anton.webstore.supportModels.Status;
 import ru.anton.webstore.test.BookManager;
 
 @Controller
@@ -138,16 +138,31 @@ public class AdminController {
 	
 	
 	
-	@RequestMapping(value = "/chageOrderStatus{id}", method = RequestMethod.GET)
-	public String ochageOrderStatus(@PathVariable("id") Long id, Model model) {
+	@RequestMapping(value = "/chageOrderStatusTocCompleted{id}", method = RequestMethod.GET)
+	public String chageOrderStatusTocCompleted(@PathVariable("id") Long id, Model model) {
 
-		System.out.println("Заказ № "+id+" выполнен!");
+		
 		BookManager bm = new BookManager();
 		bm.setup();
-		bm.changeOrderStatus(id);
+		bm.changeOrderStatus(id, Status.completed);
 		bm.exit();
 		
-		model.addAttribute("message", "Заказ № "+id+" выполнен!");
+	
+		
+		
+		return "orderDetailInfo";
+	}
+	
+	@RequestMapping(value = "/chageOrderStatusTocCancel{id}", method = RequestMethod.GET)
+	public String chageOrderStatusTocCancel(@PathVariable("id") Long id, Model model) {
+
+		
+		BookManager bm = new BookManager();
+		bm.setup();
+		bm.changeOrderStatus(id, Status.cancel);
+		bm.exit();
+		
+		
 		
 		
 		return "orderDetailInfo";
