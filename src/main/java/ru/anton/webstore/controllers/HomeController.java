@@ -15,4 +15,12 @@ public class HomeController {
 		return "main";
 
 	}
+	
+	@RequestMapping("/slideShow")
+	public String slideShow() {
+
+	
+		return "mainPage/slideShow";
+
+	}
 }
