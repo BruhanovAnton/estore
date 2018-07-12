@@ -40,7 +40,7 @@
 	text-decoration: none;
 	color: #474747;
 	z-index: 0;
-	height: 500px;
+	height: 450px;
 }
 .product-photo {
 	position: relative;
@@ -121,9 +121,10 @@ margin: 30px;
 							<img alt="sample" src="data:image/jpg;base64,${product.smallImage}" >
 						</div>
 						<h2 align="center" class ="price">${product.price} ₽</h2>
-						<h4 align="center"  class ="title">${product.title}</h4>
+						<h4 align="center" class ="title"><a  href="product/${product.productId}" target="_blank">${product.title}</a></h4>
 						
-						<button class="button button1">В корзину</button>
+						
+						<button onclick="dialogData('${product.title}', ${product.productId})" class="button button1">В корзину</button>
 					</a>
 					
 				</div>

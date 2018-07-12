@@ -9,7 +9,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="<c:url value="/resources/css/cart.css" />" rel="stylesheet">
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Корзина</title>
 
@@ -44,9 +44,6 @@ input[type=submit]:hover {
 	background-color: #45a049;
 }
 
-div {
-	background-color: white;
-}
 
 select {
 	font-size: 90%;
@@ -164,19 +161,7 @@ $("#totalCost").val(sum.toFixed(2));
 
 
 
-	<div id="mainWrapper">
-		<header> <!-- This is the header content. It contains Logo and links -->
-		<div id="logo">
-			<img src="resources/img/store logo.png" alt="sample logo" width="200"
-				height="82">
-			<!-- Company Logo text -->
-		</div>
-		<div id="headerLinks">
-			<a href="#" title="Login/Register"><img src="resources/img/shoping cart.png"
-				alt="sample logo" width="40" height="40"></a>
-				
-		</div>
-		</header>
+	
 
 	
 

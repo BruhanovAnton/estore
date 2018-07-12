@@ -6,9 +6,11 @@
 <head>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
 <script>
 
-	
+
+
 	
 function showProductLit() {
 	
@@ -25,10 +27,34 @@ function showProductLit() {
     });
 }
 
+$( document ).ready(function() {
+	showProductLit();
+});
+</script>
+<script >
+function dialogData(product, id){
+
+	
+	
+	$('#myDialog').html('Вы добавили '+product+' в корзину!');
+	
+	var x = document.getElementById("myDialog");
+	x.show();
+	setTimeout(function() {
+		x.close();
+	}, 2000);
+	
+	
+	$.ajax({    	
+        url : 'addToCart'+id
+        
+    });
+		
+};
 </script>
 <style>
 body {
-    margin: 0;
+    margin: 5;
 }
 
 div.filter {
@@ -38,9 +64,9 @@ border-radius: 6px;
     padding: 0;
     width: 20%;
     background-color: 	#f7fafa;
-   position: fixed; 
+ position: absolute; 
     height: 100%;
-/*     overflow: auto; */
+ overflow: auto; 
    
     
 }
@@ -80,18 +106,36 @@ input.filterButton{
   width:50%;
   font-size: 90%;
 }
+input.srch{
+margin-top: 15px;
+}
+h3{
+color: gray;
 
+}
+</style>
 
+<style>
+.myDialog {
+/* height: 100px; */
+ border-radius: 6px; 
+background: lightyellow;
+  position: fixed;
+    top: 50%;
+    left: 25%;
+  transform: translate(-50%, -50%);
+  z-index:99999999;
+}
 </style>
 </head>
-<body onload="showProductLit()">
-
+<body>
+<dialog id="myDialog" class = "myDialog"></dialog>
 <div class ="filter" >
-  <button onclick="showProductLit()">Load</button>
+
   <form>
-  <input type="text" name="search" placeholder="Поиск..">
+  <input class ="srch" type="text" name="search" placeholder="Поиск..">
 </form>
-<h2>Бренд</h2>
+<h3 >Бренд</h3>
 <hr>
 <form:form modelAttribute="filter" action="filterAct" method="post"
 				id="submitForm">
@@ -107,7 +151,7 @@ input.filterButton{
 <Br>
 
 
-<h2>Цена</h2>					
+<h3>Цена</h3>					
 <hr>
 <ul>
 	<form:input class = "range" type="text" path="minPrice" size="4" value="0" />
@@ -122,9 +166,9 @@ input.filterButton{
 </div>
 
 
-<div style="margin-left:25%;padding:1px 16px;height:1000px;">
+<div style="margin-left:25%;padding:1px 16px;height:auto;margin-top:25">
 
-	<div id="productsList"></div>
+<div  id="productsList"></div>	
 
 </div>
 

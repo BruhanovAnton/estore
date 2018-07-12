@@ -5,7 +5,20 @@
 <html>
 <head>
 <script>
-
+function showCart() {
+	
+    $.ajax({    	
+        url : 'cart',
+        success: function(response){
+        $('#generalContent').html(response);
+        	      	
+		},
+		error: function(){						
+			$('#generalContent').html('Error while request..');
+			
+		}
+    });
+}
 function slideShow() {
 	
     $.ajax({    	
@@ -116,12 +129,24 @@ margin:0px 0px 0px 30px;
   }
 }
 
-div.generalContent{
- margin: 60px; 
- background-color: yellow; 
+div.contenet{
+/*  border: 1px solid black; */
+    margin-top: 15px;
+    margin-bottom: 100px;
+    margin-right: 10px;
+    margin-left: 10px;
+    
 }
+
+a.cart{
+margin-top: -15px;
+margin-left: 30px;
+margin-right: 30px;
+}
+
 </style>
-<title>Insert title here</title>
+
+<title>Магазин электроники</title>
 </head>
 <body onload="slideShow()">
   
@@ -137,21 +162,21 @@ div.generalContent{
   <div class="header-right">
   
   
-    <a class="active" href="#home">Домой</a>
+    <a class="active" href="http://localhost:8080/webstore/">Домой</a>
     <a href="#contact">Контакты</a>
     <a href="#about">О нас</a>
     <a onclick="showContent('catalog')">Каталог</a>
-    <input type="search" class = "search">
-    <a class="sch" href="#serch"><img
-				src="resources/img/search.png" alt="sample logo" width="25"
-				height="25"></a>
+    <a class = "cart" onclick ="showCart()" target="_blank" title="Cart"><img
+				src="resources/img/cartIcon.png" alt="sample logo" width="55"
+				height="55"></a>
+    
    
   </div>
   
 </div>
 
+<div class ="contenet"><div  id="generalContent"></div></div>
 
-<div id="generalContent"></div>
 
 
 
