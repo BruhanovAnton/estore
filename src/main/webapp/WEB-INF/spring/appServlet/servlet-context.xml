@@ -3,9 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -28,4 +30,85 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 	</beans:bean>
 	
+	
+	
+	<beans:bean id="child" class="ru.anton.webstore.test.Child"></beans:bean>
+	
+	
+	<!-- MySQL data source -->
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<beans:property name="url" value="jdbc:mysql://localhost:3306/estore" />
+		<beans:property name="username" value="root" />
+		<beans:property name="password" value="geruma1588" />
+	</beans:bean>
+	
+	<!-- Hibernate 4 SessionFactory Bean definition -->
+    <beans:bean id="hibernate4AnnotatedSessionFactory"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="annotatedClasses">
+            <beans:list>
+                <beans:value>ru.anton.webstore.models.Contact</beans:value>
+                <beans:value>ru.anton.webstore.models.Customer</beans:value>
+                <beans:value>ru.anton.webstore.models.LineItem</beans:value>
+                <beans:value>ru.anton.webstore.models.Order</beans:value>
+                <beans:value>ru.anton.webstore.models.Product</beans:value>
+            </beans:list>
+        </beans:property>
+        <beans:property name="hibernateProperties">
+            <beans:props>
+                <beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
+                </beans:prop>
+                <beans:prop key="hibernate.show_sql">true</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+	
+<!-- 	Transaction Manager -->
+<beans:bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <beans:property name="dataSource" ref="dataSource"/>
+</beans:bean>
+
+	 <!--Dao and Service beans-->   
+    
+	 
+	 
+    <beans:bean id="productDao"
+    	class="ru.anton.webstore.dao.ProductDaoImpl">
+    	<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    
+    
+    <beans:bean id="productService"
+    	class="ru.anton.webstore.service.ProductServiceImpl">
+    	<beans:property name="productDao" ref="productDao"/>
+    </beans:bean>
+    
+    <beans:bean id="lineItemDao"
+    	class="ru.anton.webstore.dao.LineItemDaoImpl">
+    	<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    
+    
+    <beans:bean id="lineItemService"
+    	class="ru.anton.webstore.service.LineItemServiceImpl">
+    	<beans:property name="lineItemDao" ref="lineItemDao"/>
+    </beans:bean>
+    
+    
+    
+     <beans:bean id="orderDao"
+    	class="ru.anton.webstore.dao.OrderDaoImpl">
+    	<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
+    </beans:bean>
+    
+    
+    <beans:bean id="orderService"
+    	class="ru.anton.webstore.service.OrderServiceImpl">
+    	<beans:property name="orderDao" ref="orderDao"/>
+    </beans:bean>
+    
 </beans:beans>

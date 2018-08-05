@@ -17,6 +17,7 @@
 
 	function imageIsLoaded(e) {
 		$('#myImg').attr('src', e.target.result);
+		$('#myImg2').attr('src', e.target.result);
 	};
 </script>
 <script>
@@ -166,10 +167,10 @@ div {
 				<td><p>Индификатор товара</p></td> <td><form:input type="text" path="productId"  /></td>
 			</tr>
 			<tr>
-				<td> <input type='file' name="file" id="imgInp" />
+				<td> <input type='file' name="file" id="imgInp2" />
 					</td>
 					<td>
-					<img id="myImg" src="#"  with = "50%" height = "50%"/></td>
+					<img id="myImg2" src="#"  with = "50%" height = "50%"/></td>
 			</tr>
 			
 			<tr>

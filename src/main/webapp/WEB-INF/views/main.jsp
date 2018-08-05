@@ -19,13 +19,35 @@ function showCart() {
 		}
     });
 }
+
+
+function deleteItemAndShowCart(id) {
+	
+	
+    $.ajax({    	
+        url : 'cartDeleteItem/' + id,
+        success: function(response){
+            $('#generalContent').html(response);
+                 	
+    		},
+    		error: function(){						
+    			$('#generalContent').html('Error while request..');
+    			
+    		}
+       
+    });
+    
+
+}
+
+
 function slideShow() {
 	
     $.ajax({    	
         url : 'slideShow',
         success: function(response){
         $('#generalContent').html(response);
-        	      	
+             	
 		},
 		error: function(){						
 			$('#generalContent').html('Error while request..');

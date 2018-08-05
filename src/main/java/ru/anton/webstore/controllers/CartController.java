@@ -1,32 +1,40 @@
 package ru.anton.webstore.controllers;
 
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
 import ru.anton.webstore.models.LineItem;
 import ru.anton.webstore.models.Order;
 import ru.anton.webstore.models.Product;
+import ru.anton.webstore.service.OrderService;
+import ru.anton.webstore.service.ProductService;
 import ru.anton.webstore.supportModels.Cart;
 import ru.anton.webstore.test.BookManager;
 
 @Controller
 public class CartController {
 
+	@Autowired(required = true)
+	@Qualifier(value = "orderService")
+	private OrderService orderService;
+	
+	@Autowired(required = true)
+	@Qualifier(value = "productService")
+	private ProductService productService;
 	
 	@RequestMapping(value = "/addOrder", method = RequestMethod.POST)
 	public String addOrder(@ModelAttribute Cart cart, Model model, HttpSession session) {
@@ -56,19 +64,10 @@ public class CartController {
 		    System.out.println("key = " + key +" value = " + value);
 		}
 		System.out.println("Total cost = "+cart.getTotalCost());
-		System.out.println("User ID is: "+cart.getUserId());
+		System.out.println("User ID is: "+cart.getUserId());		
 		
 		
-		
-		
-		
-		BookManager bm = new BookManager();
-		bm.setup();
-		
-		bm.addOrderWithLineItems(order, items);;
-		bm.exit();
-		
-		
+		orderService.addOrderWithLineItems(order, items);
 		
 		
 		for (String productName : session.getValueNames()) {
@@ -110,6 +109,31 @@ System.out.println("Выудалили товар с ID: " + id);
         return "redirect:/cart";
     }
 	
-	
-	
+	@RequestMapping(value = "/cart", method = RequestMethod.GET)
+	public String showCart(Model model, HttpSession httpSession) {
+		
+		List<Product> products = new ArrayList<Product>();
+
+		for (String productName : httpSession.getValueNames()) {
+			products.add((Product) httpSession.getAttribute(productName));
+		}
+
+		model.addAttribute("cart", new Cart());
+		model.addAttribute("product", new Product());
+		model.addAttribute("products", products);
+		
+		return "cart";
+	}
+
+	@RequestMapping(value = "/addToCart{id}", method = RequestMethod.GET)
+	public void addToCartById(@PathVariable long id,  HttpServletRequest request, HttpSession httpSession,
+			Model model) {
+
+		System.out.println("You add book number " + id);		
+
+		httpSession.setAttribute(""+id, productService.getProduct(id));
+
+		
+
+	}
 }

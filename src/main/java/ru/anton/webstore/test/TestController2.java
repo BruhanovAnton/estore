@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,13 +18,36 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+
 import ru.anton.webstore.test.BookManager;
 import ru.anton.webstore.models.Product;
+import ru.anton.webstore.service.ProductService;
 import ru.anton.webstore.supportModels.Cart;
 import ru.anton.webstore.supportModels.ProductFilter;
 
+
+
+
+
+
 @Controller
 public class TestController2 {
+	
+	
+	
+	private ProductService productService;
+
+	@Autowired(required = true)
+	@Qualifier(value = "productService")
+	public void setProductService(ProductService productService) {
+	    this.productService = productService;
+	}
+	
+	
+	
+	
+	
+
 	
 	@RequestMapping("/test")
 	public String testTest() {
@@ -68,27 +93,34 @@ public class TestController2 {
 
 	}
 
-	@SuppressWarnings("deprecation")
-	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public String showCart(Model model, HttpSession httpSession) {
-
-		List<Product> products = new ArrayList<Product>();
-
-		for (String productName : httpSession.getValueNames()) {
-			products.add((Product) httpSession.getAttribute(productName));
-		}
-
-		model.addAttribute("cart", new Cart());
-		model.addAttribute("product", new Product());
-		model.addAttribute("products", products);
-
-		// String encoded =
-		// Base64.getEncoder().encodeToString(products.get(0).getSmallImage());
-		//
-		// model.addAttribute("img", encoded);
-
-		return "cart";
-	}
+//	@SuppressWarnings("deprecation")
+//	@RequestMapping(value = "/cart", method = RequestMethod.GET)
+//	public String showCart(Model model, HttpSession httpSession) {
+//
+//		List<Product> prods = productService.getProductsList();
+//		
+//		for(Product p : prods){
+//			System.out.println(p.getTitle() + " " + p.getPrice());
+//		}
+//	
+//		
+//		List<Product> products = new ArrayList<Product>();
+//
+//		for (String productName : httpSession.getValueNames()) {
+//			products.add((Product) httpSession.getAttribute(productName));
+//		}
+//
+//		model.addAttribute("cart", new Cart());
+//		model.addAttribute("product", new Product());
+//		model.addAttribute("products", products);
+//
+//		// String encoded =
+//		// Base64.getEncoder().encodeToString(products.get(0).getSmallImage());
+//		//
+//		// model.addAttribute("img", encoded);
+//
+//		return "cart";
+//	}
 
 	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String searchResults(@ModelAttribute ProductFilter filter, Model model) {

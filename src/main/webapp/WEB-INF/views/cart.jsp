@@ -15,6 +15,37 @@
 
 
 <style>
+
+table {
+    
+   
+    width: 90%;
+   
+}
+th, td {
+    border: 1px solid white;
+}
+
+td.td1{
+width: 200px;
+}
+td.td2{
+width: 40%;
+}
+
+
+td.td4{
+width: 10%;
+text-align: center;
+}
+
+td.td5{
+width: 10%;
+text-align: center;
+}
+td.td5{
+width: 20%;
+}
 input[type=number], select {
 	width: 10%;
 	height: 5px;
@@ -60,10 +91,10 @@ select {
 	float: right;
 }
 
-a.link {
+div.link {
 	font-size: 90%;
 	height: 15%;
-	width: 50px;
+	width: 90px;
 	background-color: red;
 	color: white;
 	padding: 14px 20px;
@@ -72,17 +103,14 @@ a.link {
 	border-radius: 4px;
 	cursor: pointer;
 	text-align: center;
-	float: right;
+	float: center;
 }
 
 input.a[type=submit]:hover {
 	background-color: black;
 }
 
-td.titleInTable{
 
-	width: 40%;
-}
 
 p.anount{
 font-size: 135%;
@@ -185,26 +213,26 @@ $("#totalCost").val(sum.toFixed(2));
 				<c:forEach items="${products}" var="product">
 
 					<hr>
-					<table width="300px" border="1">
+					<table width="300px" border="1" align="center">
 
 
 
 						
 							<tr>
-								<td><img src="data:image/jpg;base64,${product.smallImage}"
+								<td class ="td1"><img src="data:image/jpg;base64,${product.smallImage}"
 									width="150" height="150" /></td>
-								<td class = "titleInTable"><p>${product.title}</p></td>
-								<td><input type="hidden" id="${product.productId}price" class="txt"
+								<td class ="td2"><p>${product.title}</p></td>
+								<td class ="td3"><input type="hidden" id="${product.productId}price" class="txt"
 									value="${product.price}"></td>
-								<td><select id="${product.productId}qty" class="txt" path="lineItems" name="lineItems[${product.productId}]">
+								<td class ="td4"><select id="${product.productId}qty" class="txt" path="lineItems" name="lineItems[${product.productId}]">
 										<option value="0">0</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
 								</select></td>
-								<td>${product.price}Руб</td>
-								<td><input path="productId" type="hidden"
-										value="${product.productId}" /><a class = "link" href="/webstore/cartDeleteItem/${product.productId}" >Удалить</a></td>
+								<td class ="td5">${product.price}Руб</td>
+								<td class ="td6"><input path="productId" type="hidden"
+										value="${product.productId}" /><div  class = "link" onclick ="deleteItemAndShowCart(${product.productId})"  >Удалить</div></td>
 							</tr>
 
 						
