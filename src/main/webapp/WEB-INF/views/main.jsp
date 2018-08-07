@@ -185,8 +185,8 @@ margin-right: 30px;
   
   
     <a class="active" href="http://localhost:8080/webstore/">Домой</a>
-    <a href="#contact">Контакты</a>
-    <a href="#about">О нас</a>
+    <a onclick= "showContent('contacts')">Контакты</a>
+    <a onclick= "showContent('aboutUs')">О нас</a>
     <a onclick="showContent('catalog')">Каталог</a>
     <a class = "cart" onclick ="showCart()" target="_blank" title="Cart"><img
 				src="resources/img/cartIcon.png" alt="sample logo" width="55"

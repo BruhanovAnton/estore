@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ru.anton.webstore.test.BookManager;
 import ru.anton.webstore.models.Product;
@@ -44,7 +44,7 @@ public class TestController2 {
 	}
 	
 	
-	
+	private ProductFilter filterData = new ProductFilter();
 	
 	
 
@@ -122,20 +122,15 @@ public class TestController2 {
 //		return "cart";
 //	}
 
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public String searchResults(@ModelAttribute ProductFilter filter, Model model) {
+	@RequestMapping(value = "/filter", method = RequestMethod.POST)
+	public String filter(@RequestBody ProductFilter filter, HttpSession session, Model model) {
 
-		System.out.println(filter.getSearch());
-
-		BookManager manager = new BookManager();
-		manager.setup();
-		model.addAttribute("products", manager.getSearchResult(filter.getSearch()));
-		manager.exit();
 		
-		model.addAttribute("filter", new ProductFilter());
-		model.addAttribute("product", new Product());
+		
 
-		return "index3";
+		model.addAttribute("products", productService.getSearchResult(filter.getSearch()));
+		
+		return "products/productList";
 
 	}
 
@@ -159,21 +154,7 @@ public class TestController2 {
 	}
 	
 	
-	@RequestMapping("/product/{id}")
-    public String bookData(@PathVariable("id") int id, Model model){
-		
-		System.out.println(id);
-		
-		Long productId = new Long(id);
-		
-		BookManager manager = new BookManager();
-		manager.setup();
-		model.addAttribute("product", manager.getProduct(productId));
-		manager.exit();
-		       
-
-        return "product";
-    }
+	
 	
 
 	@RequestMapping("/product")

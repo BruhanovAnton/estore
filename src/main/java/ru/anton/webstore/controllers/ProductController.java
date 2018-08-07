@@ -4,32 +4,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ru.anton.webstore.service.ProductService;
-import ru.anton.webstore.supportModels.ProductFilter;
 
 
 @Controller
-public class ProductsListController {
+public class ProductController {
 
 	@Autowired(required = true)
 	@Qualifier(value = "productService")
 	private ProductService productService;
-
-	@RequestMapping("/productList")
-	public String listOfProducts(Model model) {
+	
+	
+	@RequestMapping("/product/{id}")
+    public String bookData(@PathVariable("id") int id, Model model){
 		
-		model.addAttribute("products", productService.getProductsList());
-		model.addAttribute("filter", new ProductFilter());
-		return "products/productList";
-	}
+		System.out.println(id);
+		
+		Long productId = new Long(id);
+		
+		
+		model.addAttribute("product", productService.getProduct(productId));
+		
+		       
 
-	@RequestMapping("/catalog")
-	public String catalog(Model model) {
-		model.addAttribute("filter", new ProductFilter());
-
-		return "products/catalog";
-	}
-
+        return "productPage";
+    }
+	
 }
