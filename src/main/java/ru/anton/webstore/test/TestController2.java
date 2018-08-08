@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ru.anton.webstore.test.BookManager;
@@ -66,13 +67,7 @@ public class TestController2 {
 	@RequestMapping(value = "/testPage", method = RequestMethod.GET)
 	public String printWelcome(Model model) {
 
-		BookManager manager = new BookManager();
-		manager.setup();
-		model.addAttribute("products", manager.getProductsList());
-		manager.exit();
-		model.addAttribute("filter", new ProductFilter());
-		model.addAttribute("product", new Product());
-
+		
 		return "index3";
 
 	}
@@ -122,7 +117,7 @@ public class TestController2 {
 //		return "cart";
 //	}
 
-	@RequestMapping(value = "/filter", method = RequestMethod.POST)
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
 	public String filter(@RequestBody ProductFilter filter, HttpSession session, Model model) {
 
 		
@@ -154,7 +149,15 @@ public class TestController2 {
 	}
 	
 	
-	
+	@RequestMapping(value = "/filter", method = RequestMethod.POST)
+	public String filter2(@RequestBody ProductFilter filter, HttpSession session, Model model) {
+
+			
+		model.addAttribute("products", productService.getViaFilter(filter));
+		
+		return "products/productList";
+
+	}
 	
 
 	@RequestMapping("/product")
@@ -164,6 +167,13 @@ public class TestController2 {
         return "product2";
     }
 	
-	
+	@RequestMapping(value = "/simple/", method = RequestMethod.GET)
+	public @ResponseBody String emailcheck(@RequestParam("name") String name, @RequestParam("email") String email, HttpSession session) {
 
+		System.out.println(name + " "+ email);
+		
+		
+	    String meaaseg = "success";
+	    return meaaseg;
+	}
 }

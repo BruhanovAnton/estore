@@ -1,11 +1,15 @@
 package ru.anton.webstore.supportModels;
 
+
+
 public class ProductFilter {
-	private String[] brand;
+	@SuppressWarnings("unused")
+	private String brand;
 	private String priceSort;
 	private String search;
 	private int minPrice;
 	private int maxPrice;
+
 
 	public String getSearch() {
 		return search;
@@ -32,10 +36,12 @@ public class ProductFilter {
 	}
 
 	public String[] getBrand() {
-		return brand;
+		String[] brands = brand.split(" ");
+		
+		return brands;
 	}
 
-	public void setBrand(String[] brand) {
+	public void setBrand(String brand) {
 		this.brand = brand;
 	}
 

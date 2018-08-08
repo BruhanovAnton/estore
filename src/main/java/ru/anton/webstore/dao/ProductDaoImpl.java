@@ -100,9 +100,15 @@ public class ProductDaoImpl implements ProductDao{
 		String brandParams = "";
 		String priceRabgeParams = "";
 		
+		
+		
 		Formatter fmtPriceRange = new Formatter();
 		priceRabgeParams = fmtPriceRange.format("price between %d and %d ", filter.getMinPrice(), filter.getMaxPrice())
 				.toString();
+		
+//		Formatter fmtbrandParams = new Formatter();
+//		brandParams = fmtbrandParams.format("IN (value1, value2, ...) ")
+//				.toString();
 
 		Formatter fmtQuery = new Formatter();
 		query = fmtQuery.format("SELECT * FROM products where %s %s ", brandParams, priceRabgeParams).toString();

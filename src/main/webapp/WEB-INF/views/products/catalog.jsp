@@ -55,6 +55,13 @@ function dialogData(product, id){
 
 
 $(document).ready(function() {
+	
+	
+	
+
+	
+	
+	
 	 
 	$('#submitForm').submit(function(e) {
 		var frm = $('#submitForm');
@@ -84,14 +91,62 @@ $(document).ready(function() {
     			
     		}
        
+    });   
+    
+	});
+	
+	
+	$('#submitForm2').submit(function(e) {
+		var frm = $('#submitForm2');
+		e.preventDefault();
+
+	    var data = {}
+
+	    
+	    data['maxPrice'] = $('#max').val();
+	    data['brand'] = $('#brand').val() + ' ' + $('#brand2').val()+ ' ' + $('#brand3').val()+
+	    ' ' + $('#brand4').val() + ' ' + $('#brand5').val();
+	   
+delete data["undefined"];
+	    
+    $.ajax({
+        contentType : 'application/json; charset=utf-8',
+        type: frm.attr('method'),
+        url: frm.attr('action'),
+        dataType : 'html',
+        data : JSON.stringify(data),
+        success: function(response){
+            $('#productsList').html(response);
+            	      	
+    		},
+    		error: function(){						
+    			$('#productsList').html('Error while request..');
+    			
+    		}
+       
     });  
     
 
-   
+ 
     
 	});
+	
+	
+	
+	
+	
+	
 });
+
+
+
+
 </script>
+
+
+
+
+
 <style>
 body {
     margin: 5;
@@ -172,36 +227,45 @@ background: lightyellow;
 <dialog id="myDialog" class = "myDialog"></dialog>
 <div class ="filter" >
 
-  <form:form modelAttribute="filter" action="filter" method="post"
+  <form:form modelAttribute="filter" action="search" method="post"
 				id="submitForm">
   <form:input class ="srch" type="text" path="search" name="search" placeholder="Поиск.." />
 </form:form>
 <h3 >Бренд</h3>
 <hr>
-<form:form modelAttribute="filter" action="filterAct" method="post"
-				id="submitForm">
-<form:checkbox path="brand" value="Huawei"/>Huawei 
+<form:form modelAttribute="filter" action="filter" method="post"
+				id="submitForm2">				
+				
+
+
+
+<input id="brand" type="checkbox" value="Huawei" >Huawei
 <Br>
-<form:checkbox path="brand" value="Apple"/>Apple 
+<input id="brand2" type="checkbox" value="Apple" >Apple
 <Br>
-<form:checkbox path="brand" value="Samsung"/>Samsung
+<input id="brand3" type="checkbox" value="Samsung" >Samsung
 <Br>
-<form:checkbox path="brand" value="Sony"/>Sony
+<input id="brand4" type="checkbox" value="Sony" >Sony
 <Br>
-<form:checkbox path="brand" value="Xiaomi"/>Xiaomi
+<input id="brand5" type="checkbox" value="Xiaomi" >Xiaomi
 <Br>
+
+
 
 
 <h3>Цена</h3>					
 <hr>
 <ul>
+
+
+
 	<form:input class = "range" type="text" path="minPrice" size="4" value="0" />
 
-<form:input class = "range" type="text" path="maxPrice" size="4" value="100000" />
+<form:input   id = "max" class = "range" type="text" path="maxPrice" size="4" value="100000" />
 <br>
 					
 
-					<input class ="filterButton" type="submit" value="Фильтровать">
+					<input class ="filterButton"  type="submit" value="Фильтровать">
 					
 			</form:form>
 </div>
